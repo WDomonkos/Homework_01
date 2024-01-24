@@ -1,0 +1,42 @@
+#TODO: scala code here
+import org.apache.spark.sql.{SparkSession, DataFrame}
+
+object YourETLJob {
+  def main(args: Array[String]): Unit = {
+    val spark = SparkSession.builder
+      .appName("YourETLJob")
+      .getOrCreate()
+
+    val storageAccountName = "your-storage-account-name"
+    val storageAccountKey = "your-storage-account-key"
+    val containerName = "your-container-name"
+    val dataPath = "your-data-path"
+
+    // Set Hadoop configurations for Azure Storage
+    spark.sparkContext.hadoopConfiguration.set("fs.azure", "org.apache.hadoop.fs.azure.NativeAzureFileSystem")
+    spark.sparkContext.hadoopConfiguration.set("fs.azure.account.key." + storageAccountName + ".blob.core.windows.net", storageAccountKey)
+
+    // Read data from Azure Storage container
+    val df: DataFrame = spark.read.text(s"wasb://$containerName@$storageAccountName.blob.core.windows.net/$dataPath")
+
+    // Your ETL logic here...
+
+    // Show the resulting DataFrame
+    df.show()
+
+    spark.stop()
+  }
+}
+
+name := "homework01"
+
+version := "1.0"
+
+scalaVersion := "2.12.14"
+
+libraryDependencies ++= Seq(
+  "org.apache.spark" %% "spark-core" % "3.1.2",
+  "org.apache.spark" %% "spark-sql" % "3.1.2",
+  "org.apache.hadoop" % "hadoop-azure" % "3.3.1",
+  "com.microsoft.azure" % "azure-storage" % "8.6.0"
+)

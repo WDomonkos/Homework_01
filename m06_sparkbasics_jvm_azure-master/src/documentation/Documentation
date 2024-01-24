@@ -1,0 +1,28 @@
+/**
+*Imports Dataset class, Encoders class, Row class, SparkSession class, SchemaUtils class from the Apache Spark applications using the Spark SQL API
+
+*We are declaring and initializing four constant variables with string values.
+
+*The variables being used and were declared as constants earlier in your code, and they likely represent the names of environment variables.
+(The purpose of using environment variables in this context is often related to security and configuration management.)
+
+*we are setting up a Spark session with configuration parameters for the Spark application name, master URL, and configurations related to Azure Data Lake Storage authentication using OAuth. It enables you to interact with Spark and perform distributed data processing.
+
+*Dataset<Hotel> hotels = session.read() reads hotel data from a CSV file, performs a series of transformations on the data using custom functions
+
+*Dataset<Weather> weather = session.read() processes weather data using Apache Spark's DataFrame/Dataset API. Here's a breakdown of each step:
+
+*Dataset<Row> joined = hotels performs a left join operation between two Datasets
+
+*writes the contents of the joined Dataset, which represents the result of the left join operation between hotels and weather, into Parquet format.
+
+
+
+
+
+
+
+
+
+
+
